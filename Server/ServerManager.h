@@ -2,7 +2,6 @@
 #define SERVERMANAGER_H
 
 #include <QObject>
-//#include <QTcpServer>
 
 class QTcpServer;
 class QTcpSocket;
