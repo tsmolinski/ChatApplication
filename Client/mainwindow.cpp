@@ -51,7 +51,13 @@ void MainWindow::on_btnSend_clicked()
 {
     QString message = ui->lnMessage->text().trimmed();
     clientManager->sendMessage(message);
-    ui->lstMessages->addItem(message);
-    //ui->lnMessage->setText("");
     ui->lnMessage->clear();
+
+    ChatItemWidget* chatItemWidget = new ChatItemWidget();
+    chatItemWidget->setMessage(message, true);
+    QListWidgetItem* listWidgetItem = new QListWidgetItem;
+    listWidgetItem->setSizeHint(QSize(0, 65));
+
+    ui->lstMessages->addItem(listWidgetItem);
+    ui->lstMessages->setItemWidget(listWidgetItem, chatItemWidget);
 }
