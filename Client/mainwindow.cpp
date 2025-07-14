@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "ClientManager.h"
+#include "ChatItemWidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,8 +26,8 @@ void MainWindow::on_actionConnect_triggered()
             });
 
     connect(clientManager, &ClientManager::disconnected, [this](){
-        ui->centralwidget->setEnabled(false);
-    });
+                ui->centralwidget->setEnabled(false);
+            });
 
     connect(clientManager, &ClientManager::dataReceived, this, &MainWindow::dataReceived);
 
@@ -35,7 +36,14 @@ void MainWindow::on_actionConnect_triggered()
 
 void MainWindow::dataReceived(QByteArray data)
 {
-    ui->lstMessages->addItem(data);
+    ChatItemWidget* chatItemWidget = new ChatItemWidget();
+    chatItemWidget->setMessage(data, false);
+    QListWidgetItem* listWidgetItem = new QListWidgetItem;
+    listWidgetItem->setSizeHint(QSize(0, 65));
+
+    ui->lstMessages->addItem(listWidgetItem);
+    listWidgetItem->setBackground(QColor(167, 255, 237));
+    ui->lstMessages->setItemWidget(listWidgetItem, chatItemWidget);
 }
 
 
