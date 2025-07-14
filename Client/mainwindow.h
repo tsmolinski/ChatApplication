@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class ClientManager;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -19,8 +21,12 @@ public:
 
 private slots:
     void on_actionConnect_triggered();
+    void dataReceived(QByteArray data);
+
+    void on_btnSend_clicked();
 
 private:
     Ui::MainWindow *ui;
+    ClientManager* clientManager;
 };
 #endif // MAINWINDOW_H
